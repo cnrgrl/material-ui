@@ -15,6 +15,6 @@ export default createTheme({
     secondary: { main: `${arcOrange}` },
   },
   typography: {
-    h3: { fontWeight: 700 },
+    h3: { fontWeight: 300 },
   },
 });
