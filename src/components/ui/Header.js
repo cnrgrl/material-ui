@@ -1,8 +1,11 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Typography, useScrollTrigger } from "@material-ui/core";
+import { useScrollTrigger } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
+
+import logo from "../../assets/logo.svg";
+
 function ElevationScroll(props) {
   const { children } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -19,7 +22,8 @@ function ElevationScroll(props) {
 }
 
 const useStyle = makeStyles((theme) => ({
-  toolbarMargin: { ...theme.mixins.toolbar },
+  toolbarMargin: { ...theme.mixins.toolbar, bottomMargin: "3em" },
+  logo: { height: "7em" },
 }));
 
 const Header = (props) => {
@@ -29,8 +33,8 @@ const Header = (props) => {
       {" "}
       <ElevationScroll>
         <AppBar position="fixed" color="secondary">
-          <Toolbar>
-            <Typography variant="h3">Arcdevolepment</Typography>
+          <Toolbar disableGutters>
+            <img alt="company logo" src={logo} className={classes.logo} />
           </Toolbar>
         </AppBar>
       </ElevationScroll>
