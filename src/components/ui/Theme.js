@@ -15,6 +15,11 @@ export default createTheme({
     secondary: { main: `${arcOrange}` },
   },
   typography: {
-    h3: { fontWeight: 300 },
+    tab: {
+      fontSize: "1rem",
+      fontFamily: "Raleway",
+      textTransform: "none",
+      fontWeight: 700,
+    },
   },
 });
