@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { useScrollTrigger } from "@material-ui/core";
@@ -45,6 +45,11 @@ const useStyle = makeStyles((theme) => ({
 
 const Header = (props) => {
   const classes = useStyle();
+  const [value, setValue] = useState(0);
+
+  const handleChange = (e, value) => {
+    setValue(value);
+  };
   return (
     <React.Fragment>
       {" "}
@@ -52,7 +57,12 @@ const Header = (props) => {
         <AppBar position="fixed" color="primary">
           <Toolbar disableGutters>
             <img alt="company logo" src={logo} className={classes.logo} />
-            <Tabs className={classes.tabContainer}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              className={classes.tabContainer}
+              indicatorColor="primary"
+            >
               <Tab className={classes.tab} label="Home"></Tab>
               <Tab className={classes.tab} label="Services"></Tab>
               <Tab className={classes.tab} label="The Revoluton"></Tab>
