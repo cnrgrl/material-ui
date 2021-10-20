@@ -8,6 +8,7 @@ import { Tabs } from "@material-ui/core";
 import logo from "../../assets/logo.svg";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { Menu, MenuItem } from "@material-ui/core";
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -53,9 +54,20 @@ const useStyle = makeStyles((theme) => ({
 const Header = (props) => {
   const classes = useStyle();
   const [value, setValue] = useState(0);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const handleChange = (e, value) => {
     setValue(value);
+  };
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -102,6 +114,9 @@ const Header = (props) => {
                 label="Home"
               ></Tab>
               <Tab
+                aria-owns={anchorEl ? "simple-menu" : undefined}
+                aria-haspopup={anchorEl ? true : undefined}
+                onMouseOver={(event) => handleClick(event)}
                 className={classes.tab}
                 component={Link}
                 to="/services"
@@ -133,6 +148,17 @@ const Header = (props) => {
             >
               Free Estimate
             </Button>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{ onMouseLeave: handleClose }}
+            >
+              <MenuItem onClick={handleClose}>Custom Development</MenuItem>
+              <MenuItem onClick={handleClose}>Mobile Development</MenuItem>
+              <MenuItem onClick={handleClose}>Web Development</MenuItem>
+            </Menu>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
