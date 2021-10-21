@@ -121,6 +121,7 @@ const Header = (props) => {
       case "/services":
         if (value !== 1) {
           setValue(1);
+          setSelectedIndex(0);
         }
         break;
       case "/revolution":
@@ -146,16 +147,19 @@ const Header = (props) => {
       case "/customsoftware":
         if (value !== 1) {
           setValue(1);
+          setSelectedIndex(1);
         }
         break;
       case "/mobileapps":
         if (value !== 1) {
           setValue(1);
+          setSelectedIndex(2);
         }
         break;
       case "/websites":
         if (value !== 1) {
           setValue(1);
+          setSelectedIndex(3);
         }
         break;
       default:
