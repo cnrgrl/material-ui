@@ -49,6 +49,18 @@ const useStyle = makeStyles((theme) => ({
     marginRight: "25px",
     height: "40px",
   },
+  menu: {
+    backgroundColor: theme.palette.common.blue,
+    color: "white",
+    borderRadius: 0,
+  },
+  menuItem: {
+    ...theme.typography.tab,
+    opacity: 0.7,
+    "&:hover": {
+      opacity: 1,
+    },
+  },
 }));
 
 const Header = (props) => {
@@ -56,6 +68,14 @@ const Header = (props) => {
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const menuItems = [
+    { name: "Services", link: "/services" },
+    { name: "Custom Development", link: "/customsoftware" },
+    { name: "Mobile Development", link: "/mobileapps" },
+    { name: "Web Development", link: "/websites" },
+  ];
 
   const handleChange = (e, value) => {
     setValue(value);
@@ -65,6 +85,13 @@ const Header = (props) => {
     setAnchorEl(e.currentTarget);
     setOpen(true);
   };
+
+  const handleMenuItemClick = (e, i) => {
+    setAnchorEl(null);
+    setOpen(false);
+    setSelectedIndex(i);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
     setOpen(false);
@@ -153,11 +180,26 @@ const Header = (props) => {
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
-              MenuListProps={{ onMouseLeave: handleClose }}
+              MenuListProps={{ onMouseLeave: handleClose }} //??? neden?
+              elevation="0"
+              classes={{ paper: classes.menu }}
             >
-              <MenuItem onClick={handleClose}>Custom Development</MenuItem>
-              <MenuItem onClick={handleClose}>Mobile Development</MenuItem>
-              <MenuItem onClick={handleClose}>Web Development</MenuItem>
+              {menuItems.map((item, i) => (
+                <MenuItem
+                  key={item}
+                  onClick={(event) => {
+                    handleClose();
+                    handleMenuItemClick(event, i);
+                    setValue(1);
+                  }}
+                  selected={i === selectedIndex && value === 1}
+                  component={Link}
+                  to={item.link}
+                  classes={{ root: classes.menuItem }}
+                >
+                  {item.name}
+                </MenuItem>
+              ))}
             </Menu>
           </Toolbar>
         </AppBar>
