@@ -8,7 +8,6 @@ import { Toolbar } from "@material-ui/core";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Toolbar />
       <BrowserRouter>
         <Header />
         <Switch>
