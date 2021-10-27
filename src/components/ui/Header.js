@@ -347,138 +347,30 @@ const Header = (props) => {
         onOpen={() => setOpenDrawer(true)}
       >
         <List disablePadding>
-          <ListItem
-            divider
-            button
-            component={Link}
-            to="/"
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(0);
-            }}
-            selected={value === 0}
-          >
-            <ListItemText
-              className={
-                value === 0
-                  ? [classes.drawerItemSelected, classes.drawerItem]
-                  : [classes.drawerItem]
-              }
-              disableTypography
+          {routes.map((route) => (
+            <ListItem
+              divider
+              button
+              component={Link}
+              to={route.link}
+              onClick={() => {
+                setOpenDrawer(false);
+                setValue(route.activeIndex);
+              }}
+              selected={value === route.activeIndex}
             >
-              Home
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            divider
-            button
-            component={Link}
-            to="/services"
-            selected={value === 1}
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(1);
-            }}
-          >
-            {" "}
-            <ListItemText
-              className={
-                value === 1
-                  ? [classes.drawerItemSelected, classes.drawerItem]
-                  : [classes.drawerItem]
-              }
-              disableTypography
-            >
-              Services
-            </ListItemText>
-          </ListItem>{" "}
-          <ListItem
-            divider
-            button
-            component={Link}
-            to="/revolution"
-            selected={value === 2}
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(2);
-            }}
-          >
-            {" "}
-            <ListItemText
-              className={
-                value === 2
-                  ? [classes.drawerItemSelected, classes.drawerItem]
-                  : [classes.drawerItem]
-              }
-              disableTypography
-            >
-              The Revolution
-            </ListItemText>
-          </ListItem>{" "}
-          <ListItem
-            divider
-            button
-            component={Link}
-            to="/about"
-            selected={value === 3}
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(3);
-            }}
-          >
-            {" "}
-            <ListItemText
-              className={
-                value === 3
-                  ? [classes.drawerItemSelected, classes.drawerItem]
-                  : [classes.drawerItem]
-              }
-              disableTypography
-            >
-              {" "}
-              About Us
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            divider
-            button
-            component={Link}
-            to="/contact"
-            selected={value === 4}
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(4);
-            }}
-          >
-            {" "}
-            <ListItemText
-              className={
-                value === 4
-                  ? [classes.drawerItemSelected, classes.drawerItem]
-                  : [classes.drawerItem]
-              }
-              disableTypography
-            >
-              Contact Us
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            divider
-            button
-            component={Link}
-            to="/estimate"
-            selected={value === 5}
-            onClick={() => {
-              setOpenDrawer(false);
-              setValue(5);
-            }}
-            className={classes.drawItemEstimate}
-          >
-            {" "}
-            <ListItemText className={classes.drawerItem} disableTypography>
-              Free Estimate
-            </ListItemText>
-          </ListItem>
+              <ListItemText
+                disableTypography
+                className={
+                  value === route.activeIndex
+                    ? [classes.drawerItemSelected, classes.drawerItem]
+                    : [classes.drawerItem]
+                }
+              >
+                {route.name}
+              </ListItemText>
+            </ListItem>
+          ))}
         </List>
       </SwipeableDrawer>
       <IconButton
