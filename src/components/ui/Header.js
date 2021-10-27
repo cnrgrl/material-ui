@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { useScrollTrigger } from "@material-ui/core";
@@ -124,13 +124,6 @@ const Header = (props) => {
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const menuItems = [
-    { name: "Services", link: "/services" },
-    { name: "Custom Development", link: "/customsoftware" },
-    { name: "Mobile Development", link: "/mobileapps" },
-    { name: "Web Development", link: "/websites" },
-  ];
-
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
@@ -151,6 +144,42 @@ const Header = (props) => {
     setOpenMenu(false);
   };
 
+  const menuItems = useMemo(
+    () => [
+      { name: "Services", link: "/services", activeIndex: 1, selectedIndex: 0 },
+      {
+        name: "Custom Development",
+        link: "/customsoftware",
+        activeIndex: 1,
+        selectedIndex: 1,
+      },
+      {
+        name: "Mobile Development",
+        link: "/mobileapps",
+        activeIndex: 1,
+        selectedIndex: 2,
+      },
+      {
+        name: "Web Development",
+        link: "/websites",
+        activeIndex: 1,
+        selectedIndex: 3,
+      },
+    ],
+    []
+  );
+
+  const routes = useMemo(
+    () => [
+      { name: "Home", link: "/", activeIndex: 0 },
+      { name: "Services", link: "/services", activeIndex: 1 },
+      { name: "The Revolution", link: "/revolution", activeIndex: 2 },
+      { name: "About Us", link: "/about", activeIndex: 3 },
+      { name: "Contact Us", link: "/contact", activeIndex: 4 },
+      { name: "Free Estimate", link: "/estimate", activeIndex: 5 },
+    ],
+    []
+  );
   useEffect(() => {
     // if (window.location.pathname === "/" && value !== 0) {
     //   setValue(0);
@@ -166,60 +195,76 @@ const Header = (props) => {
     //   setValue(5);
     // }
 
-    switch (window.location.pathname) {
-      case "/":
-        if (value !== 0) {
-          setValue(0);
-        }
-        break;
-      case "/services":
-        if (value !== 1) {
-          setValue(1);
-          setSelectedIndex(0);
-        }
-        break;
-      case "/revolution":
-        if (value !== 2) {
-          setValue(2);
-        }
-        break;
-      case "/about":
-        if (value !== 3) {
-          setValue(3);
-        }
-        break;
-      case "/contact":
-        if (value !== 4) {
-          setValue(4);
-        }
-        break;
-      case "/estimate":
-        if (value !== 5) {
-          setValue(5);
-        }
-        break;
-      case "/customsoftware":
-        if (value !== 1) {
-          setValue(1);
-          setSelectedIndex(1);
-        }
-        break;
-      case "/mobileapps":
-        if (value !== 1) {
-          setValue(1);
-          setSelectedIndex(2);
-        }
-        break;
-      case "/websites":
-        if (value !== 1) {
-          setValue(1);
-          setSelectedIndex(3);
-        }
-        break;
-      default:
-        break;
-    }
-  }, [value]);
+    [...menuItems, ...routes].forEach((route) => {
+      switch (window.location.pathname) {
+        case `${route.link}`:
+          if (value !== route.activeIndex) {
+            setValue(route.activeIndex);
+            if (route.selectedIndex && route.activeIndex !== selectedIndex) {
+              setSelectedIndex(route.selectedIndex);
+            }
+          }
+          break;
+
+        default:
+          break;
+      }
+    });
+
+    // switch (window.location.pathname) {
+    //   case "/":
+    //     if (value !== 0) {
+    //       setValue(0);
+    //     }
+    //     break;
+    //   case "/services":
+    //     if (value !== 1) {
+    //       setValue(1);
+    //       setSelectedIndex(0);
+    //     }
+    //     break;
+    //   case "/revolution":
+    //     if (value !== 2) {
+    //       setValue(2);
+    //     }
+    //     break;
+    //   case "/about":
+    //     if (value !== 3) {
+    //       setValue(3);
+    //     }
+    //     break;
+    //   case "/contact":
+    //     if (value !== 4) {
+    //       setValue(4);
+    //     }
+    //     break;
+    //   case "/estimate":
+    //     if (value !== 5) {
+    //       setValue(5);
+    //     }
+    //     break;
+    //   case "/customsoftware":
+    //     if (value !== 1) {
+    //       setValue(1);
+    //       setSelectedIndex(1);
+    //     }
+    //     break;
+    //   case "/mobileapps":
+    //     if (value !== 1) {
+    //       setValue(1);
+    //       setSelectedIndex(2);
+    //     }
+    //     break;
+    //   case "/websites":
+    //     if (value !== 1) {
+    //       setValue(1);
+    //       setSelectedIndex(3);
+    //     }
+    //     break;
+    //   default:
+    //     break;
+    // }
+  }, [value, selectedIndex, menuItems, routes]);
 
   const tabs = (
     <React.Fragment>
