@@ -215,6 +215,7 @@ const Header = (props) => {
       >
         {routes.map((route, index) => (
           <Tab
+            key={`${route}${index}`}
             aria-owns={route.ariaOwns}
             aria-haspopup={route.ariaHaspopup}
             onMouseOver={route.onMouseOver}
@@ -236,6 +237,7 @@ const Header = (props) => {
         MenuListProps={{ onMouseLeave: handleClose }} //??? neden?
         elevation="0"
         classes={{ paper: classes.menu }}
+        keepMounted
       >
         {menuItems.map((item, i) => (
           <MenuItem
@@ -271,6 +273,7 @@ const Header = (props) => {
         <List disablePadding>
           {routes.map((route) => (
             <ListItem
+              key={`${route}${route.activeIndex}`}
               divider
               button
               component={Link}
