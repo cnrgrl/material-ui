@@ -185,7 +185,7 @@ const Header = (props) => {
       { name: "Contact Us", link: "/contact", activeIndex: 4 },
       { name: "Free Estimate", link: "/estimate", activeIndex: 5 },
     ],
-    []
+    [anchorEl]
   );
   useEffect(() => {
     [...menuItems, ...routes].forEach((route) => {
@@ -203,60 +203,6 @@ const Header = (props) => {
           break;
       }
     });
-
-    // switch (window.location.pathname) {
-    //   case "/":
-    //     if (value !== 0) {
-    //       setValue(0);
-    //     }
-    //     break;
-    //   case "/services":
-    //     if (value !== 1) {
-    //       setValue(1);
-    //       setSelectedIndex(0);
-    //     }
-    //     break;
-    //   case "/revolution":
-    //     if (value !== 2) {
-    //       setValue(2);
-    //     }
-    //     break;
-    //   case "/about":
-    //     if (value !== 3) {
-    //       setValue(3);
-    //     }
-    //     break;
-    //   case "/contact":
-    //     if (value !== 4) {
-    //       setValue(4);
-    //     }
-    //     break;
-    //   case "/estimate":
-    //     if (value !== 5) {
-    //       setValue(5);
-    //     }
-    //     break;
-    //   case "/customsoftware":
-    //     if (value !== 1) {
-    //       setValue(1);
-    //       setSelectedIndex(1);
-    //     }
-    //     break;
-    //   case "/mobileapps":
-    //     if (value !== 1) {
-    //       setValue(1);
-    //       setSelectedIndex(2);
-    //     }
-    //     break;
-    //   case "/websites":
-    //     if (value !== 1) {
-    //       setValue(1);
-    //       setSelectedIndex(3);
-    //     }
-    //     break;
-    //   default:
-    //     break;
-    // }
   }, [value, selectedIndex, menuItems, routes]);
 
   const tabs = (
@@ -278,34 +224,6 @@ const Header = (props) => {
             label={route.name}
           />
         ))}
-        {/* <Tab className={classes.tab} component={Link} to="/" label="Home"></Tab>
-        <Tab
-          aria-owns={anchorEl ? "simple-menu" : undefined}
-          aria-haspopup={anchorEl ? true : undefined}
-          onMouseOver={(event) => handleClick(event)}
-          className={classes.tab}
-          component={Link}
-          to="/services"
-          label="Services"
-        ></Tab>
-        <Tab
-          className={classes.tab}
-          component={Link}
-          to="/revolution"
-          label="The Revoluton"
-        ></Tab>
-        <Tab
-          className={classes.tab}
-          component={Link}
-          to="/about"
-          label="About Us"
-        ></Tab>
-        <Tab
-          className={classes.tab}
-          component={Link}
-          to="/contact"
-          label="Contact Us"
-        ></Tab>*/}
       </Tabs>{" "}
       <Button variant="contained" color="secondary" className={classes.button}>
         Free Estimate
