@@ -1,4 +1,5 @@
 import Header from "./ui/Header";
+import Footer from "./ui/Footer";
 import { ThemeProvider } from "@material-ui/styles";
 import theme from "./ui/Theme.js";
 // import { makeStyles } from "@material-ui/core";
@@ -10,7 +11,11 @@ function App() {
       <BrowserRouter>
         <Header />
         <Switch>
-          <Route exact path="/" component={() => <div>Homes</div>} />
+          <Route
+            exact
+            path="/"
+            component={() => <div style={{ height: "2000px" }}>Homes</div>}
+          />
           <Route exact path="/services" component={() => <div>services</div>} />
           <Route
             exact
@@ -32,6 +37,7 @@ function App() {
           <Route exact path="/contact" component={() => <div>contact</div>} />
           <Route exact path="/estimate" component={() => <div>estimate</div>} />
         </Switch>
+        <Footer />
       </BrowserRouter>
     </ThemeProvider>
   );
