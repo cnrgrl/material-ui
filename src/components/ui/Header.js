@@ -23,7 +23,7 @@ function ElevationScroll(props) {
   // will default to window.
   // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
-    disableHysteresis: true,
+    disableHysteresis: 1,
     threshold: 0,
   });
 
@@ -43,6 +43,10 @@ const useStyle = makeStyles((theme) => ({
       marginBottom: "1.25em",
     },
   },
+  appbar: {
+    zIndex: theme.zIndex.modal + 1,
+  },
+
   logo: {
     height: "8em",
     [theme.breakpoints.down("md")]: {
@@ -73,7 +77,10 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.blue,
   },
   drawerItemSelected: {
-    opacity: "1 !important",
+    "& .MuiListItemText-root": {
+      opacity: 1,
+    },
+    // opacity: "1 !important",
   },
   drawerItem: {
     ...theme.typography.tab,
@@ -183,7 +190,6 @@ const Header = (props) => {
       { name: "The Revolution", link: "/revolution", activeIndex: 2 },
       { name: "About Us", link: "/about", activeIndex: 3 },
       { name: "Contact Us", link: "/contact", activeIndex: 4 },
-      { name: "Free Estimate", link: "/estimate", activeIndex: 5 },
     ],
     [anchorEl]
   );
@@ -225,8 +231,17 @@ const Header = (props) => {
             label={route.name}
           />
         ))}
-      </Tabs>{" "}
-      <Button variant="contained" color="secondary" className={classes.button}>
+      </Tabs>
+      <Button
+        variant="contained"
+        color="secondary"
+        className={classes.button}
+        component={Link}
+        to="/estimate"
+        onClick={() => {
+          setValue(5);
+        }}
+      >
         Free Estimate
       </Button>
       <Menu
@@ -237,11 +252,12 @@ const Header = (props) => {
         MenuListProps={{ onMouseLeave: handleClose }} //??? neden?
         elevation="0"
         classes={{ paper: classes.menu }}
+        style={{ zIndex: 1302 }}
         keepMounted
       >
         {menuItems.map((item, i) => (
           <MenuItem
-            key={item}
+            key={`${item}${i}`}
             onClick={(event) => {
               handleClose();
               handleMenuItemClick(event, i);
@@ -270,6 +286,8 @@ const Header = (props) => {
         onClose={() => setOpenDrawer(false)}
         onOpen={() => setOpenDrawer(true)}
       >
+        <div className={classes.toolbarMargin} />
+
         <List disablePadding>
           {routes.map((route) => (
             <ListItem
@@ -283,19 +301,48 @@ const Header = (props) => {
                 setValue(route.activeIndex);
               }}
               selected={value === route.activeIndex}
+              classes={{ selected: classes.drawerItemSelected }}
             >
               <ListItemText
                 disableTypography
-                className={
-                  value === route.activeIndex
-                    ? [classes.drawerItemSelected, classes.drawerItem]
-                    : [classes.drawerItem]
-                }
+                // className={
+                //   value === route.activeIndex
+                //     ? [classes.drawerItemSelected, classes.drawerItem]
+                //     : [classes.drawerItem]
+                // }
+                className={classes.drawerItem}
               >
                 {route.name}
               </ListItemText>
             </ListItem>
           ))}
+          <ListItem
+            divider
+            button
+            component={Link}
+            to="/estimate"
+            onClick={() => {
+              setOpenDrawer(false);
+              setValue(5);
+            }}
+            selected={value === 5}
+            classes={{
+              root: classes.drawItemEstimate,
+              selected: classes.drawerItemSelected,
+            }}
+          >
+            <ListItemText
+              disableTypography
+              // className={
+              //   value === route.activeIndex
+              //     ? [classes.drawerItemSelected, classes.drawerItem]
+              //     : [classes.drawerItem]
+              // }
+              className={classes.drawerItem}
+            >
+              Free Estimate
+            </ListItemText>
+          </ListItem>
         </List>
       </SwipeableDrawer>
       <IconButton
@@ -311,7 +358,7 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <ElevationScroll>
-        <AppBar position="fixed" color="primary">
+        <AppBar position="fixed" color="primary" className={classes.appbar}>
           <Toolbar disableGutters>
             <Button
               component={Link}
