@@ -5,6 +5,7 @@ import { useState } from "react";
 import theme from "./ui/Theme.js";
 // import { makeStyles } from "@material-ui/core";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import LandingPage from "./ui/LandingPage";
 
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -20,11 +21,7 @@ function App() {
           setValue={setValue}
         />
         <Switch>
-          <Route
-            exact
-            path="/"
-            component={() => <div style={{ height: "2000px" }}>Homes</div>}
-          />
+          <Route exact path="/" component={LandingPage} />
           <Route exact path="/services" component={() => <div>services</div>} />
           <Route
             exact
