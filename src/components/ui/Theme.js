@@ -21,6 +21,12 @@ export default createTheme({
       textTransform: "none",
       fontWeight: 700,
     },
+    h2: {
+      fontSize: "3em",
+      fontWeight: 700,
+      fontFamily: "Raleway",
+      color: `${arcBlue}`,
+    },
     estimate: {
       fontFamily: "Pacifico",
       fontSize: "1rem",

@@ -5,7 +5,7 @@ import { useState } from "react";
 import theme from "./ui/Theme.js";
 // import { makeStyles } from "@material-ui/core";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import LandingPage from "./ui/LandingPage";
+import LandingPage from "./LandingPage";
 
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
